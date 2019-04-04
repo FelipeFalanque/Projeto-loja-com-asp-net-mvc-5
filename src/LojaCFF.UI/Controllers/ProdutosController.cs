@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace LojaCFF.UI.Controllers
 {
-    public class ProdutoController : Controller
+    public class ProdutosController : Controller
     {
         // GET: Produto
         public ActionResult Index()
