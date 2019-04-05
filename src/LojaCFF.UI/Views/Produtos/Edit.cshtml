@@ -1,0 +1,32 @@
+﻿
+<h2>Editar Produto</h2>
+
+<form method="post">
+
+    <div>
+        <label for="txtNome">Nome:</label>
+        <input type="text" name="Nome" id="txtNome" value="@Model.Nome" autofocus />
+    </div>
+
+    <div>
+        <label for="txtPreco">Preço:</label>
+        <input type="number" name="Preco" id="txtPreco" value="@Model.Preco" autofocus />
+    </div>
+
+    <div>
+        <label for="txtTipo">Tipo:</label>
+        <input type="text" name="Tipo" id="txtTipo" value="@Model.Tipo" autofocus />
+    </div>
+
+    <div>
+        <label for="txtQtde">Quantidade:</label>
+        <input type="number" name="Qtde" id="txtQtde" value="@Model.Qtde" autofocus />
+    </div>
+
+    <div>
+        <input type="submit" value="Salvar">
+        <button type="submit">Salvar</button>
+        <button>Salvar</button>
+    </div>
+
+</form>

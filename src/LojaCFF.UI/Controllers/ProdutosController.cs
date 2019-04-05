@@ -1,4 +1,5 @@
-﻿using LojaCFF.UI.Models;
+﻿using LojaCFF.UI.Data;
+using LojaCFF.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,62 @@ namespace LojaCFF.UI.Controllers
 {
     public class ProdutosController : Controller
     {
+        private readonly LojaCFFDataContext _contexto = new LojaCFFDataContext();
+
         // GET: Produto
         public ActionResult Index()
         {
-            var produtos = new List<Produto>() {
-                new Produto() { Id= 1, Nome = "Picanha", Preco = 70.5M, Qtde= 150, Tipo = "Alimento"},
-                new Produto() { Id= 2, Nome = "Pasta de dente", Preco = 9.5M, Qtde= 250, Tipo = "Higiene"},
-                new Produto() { Id= 3, Nome = "Desinfetante", Preco = 8.99M, Qtde= 520, Tipo = "Limpeza"},
-            };
-
-
+            var produtos = _contexto.Produtos.ToList();
             return View(produtos);
+        }
+
+        [HttpGet]
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(Produto produto)
+        {
+            //TODO : VALIDAR
+
+            _contexto.Produtos.Add(produto);
+            _contexto.SaveChanges();
+            return RedirectToAction("index");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if (id != null)
+            {
+                return View(_contexto.Produtos.Find(id));
+            }
+
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Produto produto)
+        {
+            //TODO : VALIDAR
+
+            var produtoBD = _contexto.Produtos.Find(produto.Id);
+
+            produtoBD.Nome = produto.Nome;
+            produtoBD.Preco = produto.Preco;
+            produtoBD.Tipo = produto.Tipo;
+            produtoBD.Qtde = produto.Qtde;
+
+            _contexto.SaveChanges();
+
+            return RedirectToAction("index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _contexto.Dispose();
         }
     }
 }

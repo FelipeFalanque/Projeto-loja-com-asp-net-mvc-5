@@ -1,5 +1,9 @@
 ﻿<h2>Listagem de Produtos</h2>
 
+<div>
+    <a href="~/Produtos/Add">Novo Produto</a>
+</div>
+
 <table border="1">
     <thead>
         <tr>
@@ -8,6 +12,7 @@
             <th>Tipo</th>
             <th>Qtde</th>
             <th>Data do Cadastro</th>
+            <th></th>
         </tr>
     </thead>
 
@@ -20,6 +25,10 @@
                 <td>@produto.Tipo</td>
                 <td>@produto.Qtde</td>
                 <td>@produto.DataCadastro</td>
+                <td>
+                    <a href="~/Produtos/Edit/@produto.Id">Editar</a>
+                    <a href="javascript:void(0)" onclick="alert('Excluir Produto')">Excluir</a>
+                </td>
             </tr>
         }
 
