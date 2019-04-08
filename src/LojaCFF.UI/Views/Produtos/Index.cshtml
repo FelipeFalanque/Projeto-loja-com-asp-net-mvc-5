@@ -1,37 +1,72 @@
 ﻿<h2>Listagem de Produtos</h2>
 
-<div>
-    <a href="~/Produtos/Add">Novo Produto</a>
+<div class="mb-3">
+    <a href="~/Produtos/Add" class="btn btn-sm btn-outline-success">Novo Produto</a>
 </div>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Tipo</th>
-            <th>Qtde</th>
-            <th>Data do Cadastro</th>
-            <th></th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var produto in Model)
-        {
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td>@produto.Nome</td>
-                <td>@produto.Preco</td>
-                <td>@produto.Tipo</td>
-                <td>@produto.Qtde</td>
-                <td>@produto.DataCadastro</td>
-                <td>
-                    <a href="~/Produtos/Edit/@produto.Id">Editar</a>
-                    <a href="javascript:void(0)" onclick="alert('Excluir Produto')">Excluir</a>
-                </td>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Tipo</th>
+                <th>Qtde</th>
+                <th>Data do Cadastro</th>
+                <th></th>
             </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var produto in Model)
+            {
+                <tr id="produto-@produto.Id">
+                    <td>@produto.Nome</td>
+                    <td>@produto.Preco</td>
+                    <td>@produto.Tipo</td>
+                    <td>@produto.Qtde</td>
+                    <td>@produto.DataCadastro</td>
+                    <td>
+                        <a href="~/Produtos/Edit/@produto.Id" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i> Editar</a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger" onclick="ExcluirProduto(@produto.Id,'@produto.Nome')"><i class="fas fa-trash-alt"></i> Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    function ExcluirProduto(id, nome) {
+        bootbox.confirm("Deseja excluir o produtro " + nome + " ?", function (result) {
+            if (result) {
+                DeleteProduto(id);
+            }
+        });
+    }
+
+    function DeleteProduto(id) {
+        let xhr = new XMLHttpRequest();
+        const url = "/Produtos/Delete/" + id;
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status == 404) {
+                bootbox.alert("Produto não encontrado!");
+            }
+
+            if (this.readyState === 4 && this.status == 200) {
+                //Remover do html
+                let tr = document.querySelector("#produto-" + id);
+                if (tr != null) {
+                    tr.remove();
+                }
+
+                //alert("Produto excluido com sucesso!");
+            }
         }
 
-
-    </tbody>
-</table>
+        xhr.open("get", url);
+        xhr.send();
+    }
+</script>

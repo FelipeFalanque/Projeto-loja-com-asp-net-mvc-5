@@ -63,6 +63,22 @@ namespace LojaCFF.UI.Controllers
             return RedirectToAction("index");
         }
 
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var produto = _contexto.Produtos.Find(id);
+
+            if (produto == null)
+            {
+                return HttpNotFound();
+            }
+
+            _contexto.Produtos.Remove(produto);
+            _contexto.SaveChanges();
+
+            return null;
+        }
+
         protected override void Dispose(bool disposing)
         {
             _contexto.Dispose();
