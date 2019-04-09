@@ -1,32 +1,40 @@
 ﻿
-<h2>Editar Produto</h2>
-
-<form method="post">
-
-    <div>
-        <label for="txtNome">Nome:</label>
-        <input type="text" name="Nome" id="txtNome" value="@Model.Nome" autofocus />
+<div class="row">
+    <div class="col-md">
+        @*One of three columns*@
     </div>
+    <div class="col-md-6">
+        <h2>Editar Produto</h2>
 
-    <div>
-        <label for="txtPreco">Preço:</label>
-        <input type="text" name="Preco" id="txtPreco" value="@Model.Preco" autofocus />
+        <form method="post">
+
+            <div class="form-group">
+                <label for="txtNome">Nome:</label>
+                <input type="text" class="form-control" name="Nome" id="txtNome" value="@Model.Nome" autofocus />
+            </div>
+
+            <div class="form-group">
+                <label for="txtPreco">Preço:</label>
+                <input type="text" class="form-control" name="Preco" id="txtPreco" value="@Model.Preco" autofocus />
+            </div>
+
+            <div class="form-group">
+                <label for="txtTipo">Tipo:</label>
+                <input type="text" class="form-control" name="Tipo" id="txtTipo" value="@Model.Tipo" autofocus />
+            </div>
+
+            <div class="form-group">
+                <label for="txtQtde">Quantidade:</label>
+                <input type="number" class="form-control" name="Qtde" id="txtQtde" value="@Model.Qtde" autofocus />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-success">Salvar</button>
+            </div>
+
+        </form>
     </div>
-
-    <div>
-        <label for="txtTipo">Tipo:</label>
-        <input type="text" name="Tipo" id="txtTipo" value="@Model.Tipo" autofocus />
+    <div class="col-md">
+        @*One of three columns*@
     </div>
-
-    <div>
-        <label for="txtQtde">Quantidade:</label>
-        <input type="number" name="Qtde" id="txtQtde" value="@Model.Qtde" autofocus />
-    </div>
-
-    <div>
-        <input type="submit" value="Salvar">
-        <button type="submit">Salvar</button>
-        <button>Salvar</button>
-    </div>
-
-</form>
+</div>

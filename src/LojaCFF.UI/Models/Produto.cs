@@ -13,5 +13,8 @@ namespace LojaCFF.UI.Models
         public string Tipo { get; set; }
         public short Qtde { get; set; }
         public DateTime DataCadastro { get; set; } = DateTime.Now;
+
+        public int TipoProdutoId { get; set; }
+        public virtual TipoProduto TipoProduto { get; set; }
     }
 }

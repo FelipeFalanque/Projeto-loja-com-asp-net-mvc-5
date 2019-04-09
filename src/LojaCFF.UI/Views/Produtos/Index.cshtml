@@ -52,7 +52,7 @@
 
         xhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status == 404) {
-                bootbox.alert("Produto não encontrado!");
+                toastr.error("Produto não encontrado!", "Falha");
             }
 
             if (this.readyState === 4 && this.status == 200) {
@@ -62,7 +62,8 @@
                     tr.remove();
                 }
 
-                //alert("Produto excluido com sucesso!");
+                //toastr.TIPO(mensagem, titulo);
+                toastr.success("Produto excluido com sucesso!", "Sucesso");
             }
         }
 
