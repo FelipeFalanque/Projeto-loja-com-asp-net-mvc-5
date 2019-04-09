@@ -75,7 +75,7 @@ namespace LojaCFF.UI.Controllers
 
             _contexto.Produtos.Remove(produto);
             _contexto.SaveChanges();
-
+            // Se chegou até aqui não deu erro.
             return null;
         }
 
