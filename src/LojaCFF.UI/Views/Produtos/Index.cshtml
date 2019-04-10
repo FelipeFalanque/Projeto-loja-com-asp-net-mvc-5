@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "Listagem de Produtos"
+    ViewBag.Title = "Listagem de Produtos";
 }
 
-<h2>ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>
 
 <div class="mb-3">
     <a href="~/Produtos/Add" class="btn btn-sm btn-outline-success">Novo Produto</a>
@@ -32,7 +32,7 @@
                     <td>@produto.Qtde</td>
                     <td>@produto.DataCadastro</td>
                     <td>
-                        <a href="~/Produtos/Edit/@produto.Id" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i> Editar</a>
+                        <a href="@Url.Action("Edit", new { id = produto.Id })" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i> Editar</a>
                         <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger" onclick="ExcluirProduto(@produto.Id,'@produto.Nome')"><i class="fas fa-trash-alt"></i> Excluir</a>
                     </td>
                 </tr>

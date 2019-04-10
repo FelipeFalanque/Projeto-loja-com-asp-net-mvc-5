@@ -19,6 +19,9 @@ namespace LojaCFF.UI.Data
             };
 
             context.Produtos.AddRange(produtos);
+
+            context.Usuarios.Add(new Usuario { Nome = "Cesar", Email = "cesar@cesar.com", Senha = "123456" });
+
             context.SaveChanges();
         }
     }

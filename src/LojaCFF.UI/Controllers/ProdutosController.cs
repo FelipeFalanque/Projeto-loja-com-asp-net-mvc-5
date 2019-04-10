@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LojaCFF.UI.Controllers
 {
+    [Authorize]
     public class ProdutosController : Controller
     {
         private readonly LojaCFFDataContext _contexto = new LojaCFFDataContext();
@@ -22,6 +23,9 @@ namespace LojaCFF.UI.Controllers
         [HttpGet]
         public ActionResult Add()
         {
+            var tipos = _contexto.TiposProdutos.ToList();
+            ViewBag.Tipos = tipos;
+
             return View();
         }
 
@@ -33,6 +37,7 @@ namespace LojaCFF.UI.Controllers
             {
                 _contexto.Produtos.Add(produto);
                 _contexto.SaveChanges();
+
                 return RedirectToAction("index");
             }
 
@@ -47,11 +52,11 @@ namespace LojaCFF.UI.Controllers
         {
             if (id != null)
             {
+                var tipos = _contexto.TiposProdutos.ToList();
+                ViewBag.Tipos = tipos;
+
                 return View(_contexto.Produtos.Find(id));
             }
-
-            var tipos = _contexto.TiposProdutos.ToList();
-            ViewBag.Tipos = tipos;
 
             return RedirectToAction("index");
         }

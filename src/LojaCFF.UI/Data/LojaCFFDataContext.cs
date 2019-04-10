@@ -11,8 +11,8 @@ namespace LojaCFF.UI.Data
         }
 
         public DbSet<Produto> Produtos { get; set; }
-
         public DbSet<TipoProduto> TiposProdutos { get; set;}
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
