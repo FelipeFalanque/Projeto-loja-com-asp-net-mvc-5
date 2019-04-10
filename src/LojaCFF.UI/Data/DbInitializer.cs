@@ -8,10 +8,14 @@ namespace LojaCFF.UI.Data
     {
         protected override void Seed(LojaCFFDataContext context)
         {
+            var alimento = new TipoProduto { Nome = "Alimento" };
+            var higiene = new TipoProduto { Nome = "Higiene" };
+            var limpeza = new TipoProduto { Nome = "Limpeza" };
+
             var produtos = new List<Produto>() {
-                new Produto() { Nome = "Picanha", Preco = 70.5M, Qtde= 150, Tipo = "Alimento"},
-                new Produto() { Nome = "Pasta de dente", Preco = 9.5M, Qtde= 250, Tipo = "Higiene"},
-                new Produto() { Nome = "Desinfetante", Preco = 8.99M, Qtde= 520, Tipo = "Limpeza"},
+                new Produto() { Nome = "Picanha", Preco = 70.5M, Qtde= 150, TipoProduto = alimento },
+                new Produto() { Nome = "Pasta de dente", Preco = 9.5M, Qtde= 250, TipoProduto = higiene },
+                new Produto() { Nome = "Desinfetante", Preco = 8.99M, Qtde= 520, TipoProduto = limpeza }
             };
 
             context.Produtos.AddRange(produtos);

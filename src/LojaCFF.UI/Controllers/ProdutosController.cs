@@ -29,10 +29,17 @@ namespace LojaCFF.UI.Controllers
         public ActionResult Add(Produto produto)
         {
             //TODO : VALIDAR
+            if (ModelState.IsValid)
+            {
+                _contexto.Produtos.Add(produto);
+                _contexto.SaveChanges();
+                return RedirectToAction("index");
+            }
 
-            _contexto.Produtos.Add(produto);
-            _contexto.SaveChanges();
-            return RedirectToAction("index");
+            var tipos = _contexto.TiposProdutos.ToList();
+            ViewBag.Tipos = tipos;
+
+            return View(produto);
         }
 
         [HttpGet]
@@ -43,6 +50,9 @@ namespace LojaCFF.UI.Controllers
                 return View(_contexto.Produtos.Find(id));
             }
 
+            var tipos = _contexto.TiposProdutos.ToList();
+            ViewBag.Tipos = tipos;
+
             return RedirectToAction("index");
         }
 
@@ -50,17 +60,24 @@ namespace LojaCFF.UI.Controllers
         public ActionResult Edit(Produto produto)
         {
             //TODO : VALIDAR
+            if (ModelState.IsValid)
+            {
+                var produtoBD = _contexto.Produtos.Find(produto.Id);
 
-            var produtoBD = _contexto.Produtos.Find(produto.Id);
+                produtoBD.Nome = produto.Nome;
+                produtoBD.Preco = produto.Preco;
+                produtoBD.TipoProdutoId = produto.TipoProdutoId;
+                produtoBD.Qtde = produto.Qtde;
 
-            produtoBD.Nome = produto.Nome;
-            produtoBD.Preco = produto.Preco;
-            produtoBD.Tipo = produto.Tipo;
-            produtoBD.Qtde = produto.Qtde;
+                _contexto.SaveChanges();
 
-            _contexto.SaveChanges();
+                return RedirectToAction("index");
+            }
 
-            return RedirectToAction("index");
+            var tipos = _contexto.TiposProdutos.ToList();
+            ViewBag.Tipos = tipos;
+
+            return View(produto);
         }
 
         [HttpGet]
@@ -75,7 +92,7 @@ namespace LojaCFF.UI.Controllers
 
             _contexto.Produtos.Remove(produto);
             _contexto.SaveChanges();
-            // Se chegou até aqui não deu erro.
+
             return null;
         }
 

@@ -1,4 +1,9 @@
-﻿<h2>Listagem de Produtos</h2>
+﻿
+@{
+    ViewBag.Title = "Listagem de Produtos"
+}
+
+<h2>ViewBag.Title</h2>
 
 <div class="mb-3">
     <a href="~/Produtos/Add" class="btn btn-sm btn-outline-success">Novo Produto</a>
@@ -23,7 +28,7 @@
                 <tr id="produto-@produto.Id">
                     <td>@produto.Nome</td>
                     <td>@produto.Preco</td>
-                    <td>@produto.Tipo</td>
+                    <td>@produto.TipoProduto.Nome</td>
                     <td>@produto.Qtde</td>
                     <td>@produto.DataCadastro</td>
                     <td>
