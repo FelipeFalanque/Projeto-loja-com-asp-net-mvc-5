@@ -14,7 +14,7 @@ namespace LojaCFF.UI.Models
         public string Nome { get; set; }
         [Column(TypeName = "varchar"), Required, StringLength(100)]
         public string Email { get; set; }
-        [Column(TypeName = "varchar"), Required, StringLength(40)]
+        [Column(TypeName = "varchar"), Required, StringLength(300)]
         public string Senha { get; set; }
     }
 }

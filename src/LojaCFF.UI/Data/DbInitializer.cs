@@ -1,4 +1,5 @@
-﻿using LojaCFF.UI.Models;
+﻿using LojaCFF.UI.Infra.Helpers;
+using LojaCFF.UI.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 
@@ -20,7 +21,11 @@ namespace LojaCFF.UI.Data
 
             context.Produtos.AddRange(produtos);
 
-            context.Usuarios.Add(new Usuario { Nome = "Cesar", Email = "cesar@cesar.com", Senha = "123456" });
+            context.Usuarios.Add(new Usuario {
+                Nome = "Cesar",
+                Email = "cesar@cesar.com",
+                Senha = "123456".Encrypt()
+            });
 
             context.SaveChanges();
         }

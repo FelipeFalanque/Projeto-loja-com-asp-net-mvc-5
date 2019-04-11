@@ -23,7 +23,7 @@
 
             <div class="form-group">
                 <label>Senha:</label>
-                @Html.TextBoxFor(f => f.Senha, new { @class = "form-control", autofocus = "" })
+                @Html.PasswordFor(f => f.Senha, new { @class = "form-control", autofocus = "" })
                 <small>
                     @Html.ValidationMessageFor(f => f.Senha, null, new { @class = "text-danger" })
                 </small>
