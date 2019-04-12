@@ -1,5 +1,7 @@
-﻿using LojaCFF.UI.Data;
-using LojaCFF.UI.Models;
+﻿using LojaCFF.Data.EF;
+using LojaCFF.Data.EF.Repositories;
+using LojaCFF.Domain.Entities;
+using LojaCFF.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +13,20 @@ namespace LojaCFF.UI.Controllers
     [Authorize]
     public class ProdutosController : Controller
     {
-        private readonly LojaCFFDataContext _contexto = new LojaCFFDataContext();
+        private readonly IProdutoRepository _repoProduto = new ProdutoRepositoryEF();
+        private readonly ITipoProdutoRepository _repoTipoProduto = new TipoProdutoRepositoryEF();
 
         // GET: Produto
         public ActionResult Index()
         {
-            var produtos = _contexto.Produtos.ToList();
+            var produtos = _repoProduto.Get();
             return View(produtos);
         }
 
         [HttpGet]
         public ActionResult Add()
         {
-            var tipos = _contexto.TiposProdutos.ToList();
+            var tipos = _repoTipoProduto.Get();
             ViewBag.Tipos = tipos;
 
             return View();
@@ -35,13 +38,12 @@ namespace LojaCFF.UI.Controllers
             //TODO : VALIDAR
             if (ModelState.IsValid)
             {
-                _contexto.Produtos.Add(produto);
-                _contexto.SaveChanges();
+                _repoProduto.Add(produto);
 
                 return RedirectToAction("index");
             }
 
-            var tipos = _contexto.TiposProdutos.ToList();
+            var tipos = _repoTipoProduto.Get();
             ViewBag.Tipos = tipos;
 
             return View(produto);
@@ -52,10 +54,10 @@ namespace LojaCFF.UI.Controllers
         {
             if (id != null)
             {
-                var tipos = _contexto.TiposProdutos.ToList();
+                var tipos = _repoTipoProduto.Get();
                 ViewBag.Tipos = tipos;
 
-                return View(_contexto.Produtos.Find(id));
+                return View(_repoProduto.Get((int)id));
             }
 
             return RedirectToAction("index");
@@ -67,19 +69,19 @@ namespace LojaCFF.UI.Controllers
             //TODO : VALIDAR
             if (ModelState.IsValid)
             {
-                var produtoBD = _contexto.Produtos.Find(produto.Id);
+                var produtoBD = _repoProduto.Get(produto.Id);
 
                 produtoBD.Nome = produto.Nome;
                 produtoBD.Preco = produto.Preco;
                 produtoBD.TipoProdutoId = produto.TipoProdutoId;
                 produtoBD.Qtde = produto.Qtde;
 
-                _contexto.SaveChanges();
+                _repoProduto.Edit(produtoBD);
 
                 return RedirectToAction("index");
             }
 
-            var tipos = _contexto.TiposProdutos.ToList();
+            var tipos = _repoTipoProduto.Get();
             ViewBag.Tipos = tipos;
 
             return View(produto);
@@ -88,22 +90,22 @@ namespace LojaCFF.UI.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var produto = _contexto.Produtos.Find(id);
+            var produto = _repoProduto.Get(id);
 
             if (produto == null)
             {
                 return HttpNotFound();
             }
 
-            _contexto.Produtos.Remove(produto);
-            _contexto.SaveChanges();
+            _repoProduto.Delete(produto);
 
             return null;
         }
 
         protected override void Dispose(bool disposing)
         {
-            _contexto.Dispose();
+            _repoProduto.Dispose();
+            _repoTipoProduto.Dispose();
         }
     }
 }

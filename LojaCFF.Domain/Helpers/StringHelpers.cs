@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace LojaCFF.UI.Infra.Helpers
+namespace LojaCFF.Domain.Helpers
 {
     public static class StringHelpers
     {

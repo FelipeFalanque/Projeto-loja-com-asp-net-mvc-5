@@ -1,9 +1,9 @@
-﻿using LojaCFF.UI.Infra.Helpers;
-using LojaCFF.UI.Models;
+﻿using LojaCFF.Domain.Entities;
+using LojaCFF.Domain.Helpers;
 using System.Collections.Generic;
 using System.Data.Entity;
 
-namespace LojaCFF.UI.Data
+namespace LojaCFF.Data.EF
 {
     public class DbInitializer : CreateDatabaseIfNotExists<LojaCFFDataContext>
     {
@@ -21,7 +21,8 @@ namespace LojaCFF.UI.Data
 
             context.Produtos.AddRange(produtos);
 
-            context.Usuarios.Add(new Usuario {
+            context.Usuarios.Add(new Usuario
+            {
                 Nome = "Cesar",
                 Email = "cesar@cesar.com",
                 Senha = "123456".Encrypt()

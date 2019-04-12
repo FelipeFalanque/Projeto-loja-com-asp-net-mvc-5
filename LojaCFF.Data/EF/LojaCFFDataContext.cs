@@ -1,7 +1,7 @@
-﻿using LojaCFF.UI.Models;
+﻿using LojaCFF.Domain.Entities;
 using System.Data.Entity;
 
-namespace LojaCFF.UI.Data
+namespace LojaCFF.Data.EF
 {
     public class LojaCFFDataContext : DbContext
     {
@@ -11,12 +11,17 @@ namespace LojaCFF.UI.Data
         }
 
         public DbSet<Produto> Produtos { get; set; }
-        public DbSet<TipoProduto> TiposProdutos { get; set;}
+        public DbSet<TipoProduto> TiposProdutos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Configurations.Add(new Maps.ProdutoMap());
+            modelBuilder.Configurations.Add(new Maps.TipoProdutoMap());
+            modelBuilder.Configurations.Add(new Maps.UsuarioMap());
+
+            //base.OnModelCreating(modelBuilder);
         }
     }
 }

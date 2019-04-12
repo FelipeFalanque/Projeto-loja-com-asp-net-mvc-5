@@ -1,5 +1,7 @@
-﻿using LojaCFF.UI.Data;
-using LojaCFF.UI.Infra.Helpers;
+﻿using LojaCFF.Data.EF;
+using LojaCFF.Data.EF.Repositories;
+using LojaCFF.Domain.Helpers;
+using LojaCFF.Domain.Interfaces.Repositories;
 using LojaCFF.UI.Models;
 using System.Linq;
 using System.Web.Mvc;
@@ -9,7 +11,7 @@ namespace LojaCFF.UI.Controllers
 {
     public class ContaController : Controller
     {
-        private readonly LojaCFFDataContext _contexto = new LojaCFFDataContext();
+        private readonly IUsuarioRepository _repUsuario = new UsuarioRepositoryEF();
 
         [HttpGet]
         public ActionResult Login(string ReturnUrl)
@@ -22,7 +24,7 @@ namespace LojaCFF.UI.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel login)
         {
-            var user = _contexto.Usuarios.FirstOrDefault(u => u.Email.ToLower() == login.Email.ToLower());
+            var user = _repUsuario.Get(login.Email);
 
             if (user == null)
                 ModelState.AddModelError("Email", "Email não encontrado.");
@@ -56,11 +58,10 @@ namespace LojaCFF.UI.Controllers
 
             return RedirectToAction("Login");
         }
-        
 
         protected override void Dispose(bool disposing)
         {
-            _contexto.Dispose();
+            _repUsuario.Dispose();
         }
     }
 }

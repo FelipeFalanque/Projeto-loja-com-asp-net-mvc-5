@@ -201,17 +201,10 @@
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
-    <Compile Include="Data\DbInitializer.cs" />
-    <Compile Include="Data\LojaCFFDataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infra\Helpers\StringHelpers.cs" />
-    <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\Produto.cs" />
-    <Compile Include="Models\TipoProduto.cs" />
-    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +244,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\LojaCFF.Data\LojaCFF.Data.csproj">
+      <Project>{f4a011a8-6c48-4d6e-ba47-d85c26830445}</Project>
+      <Name>LojaCFF.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LojaCFF.Domain\LojaCFF.Domain.csproj">
+      <Project>{669f3204-d276-4afd-9c15-d55b9e957ab4}</Project>
+      <Name>LojaCFF.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
