@@ -2,6 +2,8 @@
 using LojaCFF.Data.EF.Repositories;
 using LojaCFF.Domain.Entities;
 using LojaCFF.Domain.Interfaces.Repositories;
+using LojaCFF.UI.ViewModel.Produto;
+using LojaCFF.UI.ViewModel.Produto.Maps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace LojaCFF.UI.Controllers
         // GET: Produto
         public ActionResult Index()
         {
-            var produtos = _repoProduto.Get();
+            var produtos = _repoProduto.Get().ToProdutosViewsModels();
             return View(produtos);
         }
 
@@ -33,8 +35,10 @@ namespace LojaCFF.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Produto produto)
+        public ActionResult Add(ProdutoViewModel produtoVM)
         {
+            var produto = produtoVM.ToProduto();
+
             //TODO : VALIDAR
             if (ModelState.IsValid)
             {
@@ -46,7 +50,7 @@ namespace LojaCFF.UI.Controllers
             var tipos = _repoTipoProduto.Get();
             ViewBag.Tipos = tipos;
 
-            return View(produto);
+            return View(produtoVM);
         }
 
         [HttpGet]
@@ -57,15 +61,17 @@ namespace LojaCFF.UI.Controllers
                 var tipos = _repoTipoProduto.Get();
                 ViewBag.Tipos = tipos;
 
-                return View(_repoProduto.Get((int)id));
+                return View(_repoProduto.Get((int)id).ToProdutoViewModel());
             }
 
             return RedirectToAction("index");
         }
 
         [HttpPost]
-        public ActionResult Edit(Produto produto)
+        public ActionResult Edit(ProdutoViewModel produtoVM)
         {
+            var produto = produtoVM.ToProduto();
+
             //TODO : VALIDAR
             if (ModelState.IsValid)
             {
@@ -84,7 +90,7 @@ namespace LojaCFF.UI.Controllers
             var tipos = _repoTipoProduto.Get();
             ViewBag.Tipos = tipos;
 
-            return View(produto);
+            return View(produtoVM);
         }
 
         [HttpGet]

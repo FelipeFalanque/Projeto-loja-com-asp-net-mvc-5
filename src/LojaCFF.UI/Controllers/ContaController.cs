@@ -1,9 +1,7 @@
-﻿using LojaCFF.Data.EF;
-using LojaCFF.Data.EF.Repositories;
+﻿using LojaCFF.Data.EF.Repositories;
 using LojaCFF.Domain.Helpers;
 using LojaCFF.Domain.Interfaces.Repositories;
-using LojaCFF.UI.Models;
-using System.Linq;
+using LojaCFF.UI.ViewModel.Login;
 using System.Web.Mvc;
 using System.Web.Security;
 

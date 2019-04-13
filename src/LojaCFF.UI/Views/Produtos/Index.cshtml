@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<ProdutoViewModel>
+
 @{
     ViewBag.Title = "Listagem de Produtos";
 }
@@ -23,12 +24,12 @@
         </thead>
 
         <tbody>
-            @foreach (var produto in Model)
+            @foreach (ProdutoViewModel produto in Model)
             {
                 <tr id="produto-@produto.Id">
                     <td>@produto.Nome</td>
-                    <td>@produto.Preco</td>
-                    <td>@produto.TipoProduto.Nome</td>
+                    <td>@produto.Preco.ToString("C2")</td>
+                    <td>@produto.TipoProduto</td>
                     <td>@produto.Qtde</td>
                     <td>@produto.DataCadastro</td>
                     <td>
