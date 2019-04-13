@@ -1,13 +1,9 @@
-﻿using LojaCFF.Data.EF;
-using LojaCFF.Data.EF.Repositories;
-using LojaCFF.Domain.Entities;
+﻿using LojaCFF.Data.EF.Repositories;
 using LojaCFF.Domain.Interfaces.Repositories;
+using LojaCFF.Domain.Interfaces.Services;
+using LojaCFF.Domain.Services;
 using LojaCFF.UI.ViewModel.Produto;
 using LojaCFF.UI.ViewModel.Produto.Maps;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace LojaCFF.UI.Controllers
@@ -15,20 +11,26 @@ namespace LojaCFF.UI.Controllers
     [Authorize]
     public class ProdutosController : Controller
     {
-        private readonly IProdutoRepository _repoProduto = new ProdutoRepositoryEF();
-        private readonly ITipoProdutoRepository _repoTipoProduto = new TipoProdutoRepositoryEF();
+        private readonly IProdutoService _produtoService;
+        private readonly ITipoProdutoService _tipoProdutoService;
+
+        public ProdutosController()
+        {
+            _produtoService = new ProdutoService(new ProdutoRepositoryEF(), new TipoProdutoRepositoryEF());
+            _tipoProdutoService = new TipoProdutoService(new TipoProdutoRepositoryEF());
+        }
 
         // GET: Produto
         public ActionResult Index()
         {
-            var produtos = _repoProduto.Get().ToProdutosViewsModels();
+            var produtos = _produtoService.Get().ToProdutosViewsModels();
             return View(produtos);
         }
 
         [HttpGet]
         public ActionResult Add()
         {
-            var tipos = _repoTipoProduto.Get();
+            var tipos = _tipoProdutoService.Get();
             ViewBag.Tipos = tipos;
 
             return View();
@@ -42,12 +44,12 @@ namespace LojaCFF.UI.Controllers
             //TODO : VALIDAR
             if (ModelState.IsValid)
             {
-                _repoProduto.Add(produto);
+                _produtoService.Add(produto);
 
                 return RedirectToAction("index");
             }
 
-            var tipos = _repoTipoProduto.Get();
+            var tipos = _tipoProdutoService.Get();
             ViewBag.Tipos = tipos;
 
             return View(produtoVM);
@@ -58,10 +60,10 @@ namespace LojaCFF.UI.Controllers
         {
             if (id != null)
             {
-                var tipos = _repoTipoProduto.Get();
+                var tipos = _tipoProdutoService.Get();
                 ViewBag.Tipos = tipos;
 
-                return View(_repoProduto.Get((int)id).ToProdutoViewModel());
+                return View(_produtoService.Get((int)id).ToProdutoViewModel());
             }
 
             return RedirectToAction("index");
@@ -75,19 +77,19 @@ namespace LojaCFF.UI.Controllers
             //TODO : VALIDAR
             if (ModelState.IsValid)
             {
-                var produtoBD = _repoProduto.Get(produto.Id);
+                var produtoBD = _produtoService.Get(produto.Id);
 
                 produtoBD.Nome = produto.Nome;
                 produtoBD.Preco = produto.Preco;
                 produtoBD.TipoProdutoId = produto.TipoProdutoId;
                 produtoBD.Qtde = produto.Qtde;
 
-                _repoProduto.Edit(produtoBD);
+                _produtoService.Edit(produtoBD);
 
                 return RedirectToAction("index");
             }
 
-            var tipos = _repoTipoProduto.Get();
+            var tipos = _tipoProdutoService.Get();
             ViewBag.Tipos = tipos;
 
             return View(produtoVM);
@@ -96,22 +98,16 @@ namespace LojaCFF.UI.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var produto = _repoProduto.Get(id);
+            var produto = _produtoService.Get(id);
 
             if (produto == null)
             {
                 return HttpNotFound();
             }
 
-            _repoProduto.Delete(produto);
+            _produtoService.Delete(produto);
 
             return null;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _repoProduto.Dispose();
-            _repoTipoProduto.Dispose();
         }
     }
 }
