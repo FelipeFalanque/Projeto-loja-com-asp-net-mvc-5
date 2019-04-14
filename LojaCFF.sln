@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaCFF.Domain", "LojaCFF.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaCFF.Data", "LojaCFF.Data\LojaCFF.Data.csproj", "{F4A011A8-6C48-4D6E-BA47-D85C26830445}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaCFF.Tests", "LojaCFF.Tests\LojaCFF.Tests.csproj", "{64F5BA7A-D12F-450C-A7AD-EB2D7BA00519}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F4A011A8-6C48-4D6E-BA47-D85C26830445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4A011A8-6C48-4D6E-BA47-D85C26830445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4A011A8-6C48-4D6E-BA47-D85C26830445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F5BA7A-D12F-450C-A7AD-EB2D7BA00519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F5BA7A-D12F-450C-A7AD-EB2D7BA00519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F5BA7A-D12F-450C-A7AD-EB2D7BA00519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F5BA7A-D12F-450C-A7AD-EB2D7BA00519}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

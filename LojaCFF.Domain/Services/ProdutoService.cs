@@ -8,14 +8,11 @@ namespace LojaCFF.Domain.Services
 {
     public class ProdutoService : IProdutoService, IDisposable
     {
-
         private readonly IProdutoRepository _repoProduto;
-        private readonly ITipoProdutoRepository _repoTipoProduto;
 
-        public ProdutoService(IProdutoRepository repoProduto, ITipoProdutoRepository repoTipoProduto)
+        public ProdutoService(IProdutoRepository repoProduto)
         {
             _repoProduto = repoProduto;
-            _repoTipoProduto = repoTipoProduto;
         }
 
         public void Add(Produto entity)
@@ -51,7 +48,6 @@ namespace LojaCFF.Domain.Services
         public void Dispose()
         {
             _repoProduto.Dispose();
-            _repoTipoProduto.Dispose();
         }
     }
 }
